@@ -1,0 +1,32 @@
+anongitssh: a restricted shell for git-upload-pack over SSH 
+
+* Build and install
+
+Edit the following variables in Makefile:
+
+README_URL?=		https://www.allbsd.org/anongit.html
+REPODIR_PREFIX?=	/var/home/anongit/freebsd
+ANONGIT_USER?=		anongit
+CONTACT?=		hrs@allbsd.org
+GITUPLOADPACK_PATH?=	/usr/local/bin/git-upload-pack
+
+and then do "make && make install".  "anongitssh" will be
+installed into /usr/local/libexec as a setuid binary.
+
+* Configuration
+
+Add a user whose name is ANONGIT_USER and the shell is
+/usr/local/libexec/anongitssh.  The home directory has to exist
+and it has to be able to read the directory REPODIR_PREFIX.
+Do not forget to add /usr/local/libexec/anongitssh into /etc/shells.
+
+Repositories must be under REPODIR_PREFIX.  The following command line
+on the client will attempt to read a repository at "REPODIR_PREFIX/src.git":
+
+% git clone anongit@repo.allbsd.org:src.git
+
+Note that the following 5 characters in the repository name will be removed:
+
+  " ' & / ;
+
+[EOT]
