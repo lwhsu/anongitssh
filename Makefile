@@ -13,8 +13,7 @@ GITUPLOADPACK_PATH?=	/usr/local/bin/git-upload-pack
 
 BINOWN?=	root
 BINMODE?=	4111
-DESTDIR?=	/usr/local
-BINDIR?=	/libexec
+BINDIR?=	/usr/local/libexec
 CFLAGS+=	-ansi -pedantic
 .if defined(NO_SYSLOG)
 CFLAGS+=	-DNO_SYSLOG
