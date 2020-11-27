@@ -241,7 +241,7 @@ main(int argc, char *argv[])
 	if (putlog_syslog)
 		closelog();
 
-	execle(ce->ce_exec, g_argv[0], g_argv[1], NULL, env);
+	execle(ce->ce_exec, g_argv[0], g_argv[g_argc - 1], NULL, env);
 	perror("execle");
 	putlog(LOG_ERR, "%s: unable to exec", ce->ce_exec);
 
