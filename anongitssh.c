@@ -204,6 +204,7 @@ main(int argc, char *argv[])
 		usage();
 		exit(EXIT_FAILURE);
 	}
+	free(g_args_str);
 	/* Remove dangerous characters in the repodir. */
 	p = &repolabel[0];
 	p0 = g_argv[g_argc - 1];
@@ -213,7 +214,14 @@ main(int argc, char *argv[])
 			p0++;
 		*p++ = *p0++;
 	}
-	/* XXX Dot or dotdot in the repodir should be rejected. */
+	/* Dot or dotdot in the repolabel should be rejected. */
+	if (strncmp(repolabel, "..", sizeof("..")) == 0 ||
+	    strncmp(repolabel, ".", sizeof(".")) == 0) {
+		putlog(LOG_ERR, "Access denied: "
+		    "repodir (%s) is dot or dotdot", repolabel);
+		usage();
+		exit(EXIT_FAILURE);
+	}
 	snprintf(repodir, sizeof(repodir), "%s/%s",
 	    ce->ce_repodir_prefix, repolabel);
 	if ((dirp = opendir(repodir)) == NULL) {
