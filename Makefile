@@ -15,7 +15,17 @@ BINOWN?=	root
 BINMODE?=	4111
 DESTDIR?=	/usr/local
 BINDIR?=	/libexec
-CFLAGS+=	-ansi -pedantic
+# Clang/LLVM
+CFLAGS+=	-std=gnu99 \
+		-fstack-protector-strong -Wsystem-headers \
+		-Werror -Wall -Wno-format-y2k -W -Wno-unused-parameter \
+		-Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith \
+		-Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wshadow \
+		-Wunused-parameter -Wcast-align -Wchar-subscripts -Winline \
+		-Wnested-externs -Wredundant-decls -Wold-style-definition \
+		-Wno-pointer-sign -Wmissing-variable-declarations \
+		-Wthread-safety -Wno-empty-body -Wno-string-plus-int \
+		-Wno-unused-const-variable  -Qunused-arguments
 .if defined(NO_SYSLOG)
 CFLAGS+=	-DNO_SYSLOG
 .endif

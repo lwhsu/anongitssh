@@ -23,30 +23,37 @@
  * SUCH DAMAGE.
  */
 
-#include <sys/param.h>
-
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #if defined(__OpenBSD__) || defined(__NetBSD__) || defined(__FreeBSD__)
-#include <paths.h>
+#include <sys/param.h>
 #endif
 
 #include <dirent.h>
 #include <errno.h>
+#if defined(__OpenBSD__) || defined(__NetBSD__) || defined(__FreeBSD__)
+#include <paths.h>
+#endif
 #include <pwd.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <syslog.h>
 #include <unistd.h>
-
-#include <sys/types.h>
 
 #include "anongitssh.h"
 #include "config.h"
 #include "putlog.h"
 
-#define SERVER_STR_MAXLEN       (512)
+static const struct chrootenv anongit_ce[] = {
+	{
+		.ce_repodir_prefix = REPODIR_PREFIX,
+		.ce_exec = GITUPLOADPACK_PATH,
+		.ce_chrootdir = "/",
+		.ce_nam = ANONGIT_USER,
+		.ce_contact = CONTACT
+	},
+	{ NULL, NULL, NULL, NULL, NULL }
+};
 
 void usage(void);
 
@@ -169,7 +176,7 @@ main(int argc, char *argv[])
 	g_argc = 0;
 	p0 = g_args_str;
 	while ((p = strchr(p0, ' ')) != NULL &&
-	    g_argc < nitems(g_argv)) {
+	    g_argc < (int)nitems(g_argv)) {
 		*p = '\0';
 		g_argv[g_argc] = strdup(p0);
 		putlog(LOG_DEBUG, "g_argv[%d] = %s", g_argc, g_argv[g_argc]);
@@ -181,7 +188,7 @@ main(int argc, char *argv[])
 		g_argc++;
 	}
 	/* The last argument. */
-	if (*p0 != '\0' && g_argc < nitems(g_argv)) {
+	if (*p0 != '\0' && g_argc < (int)nitems(g_argv)) {
 		g_argv[g_argc] = strdup(p0);
 		putlog(LOG_DEBUG, "DEBUG: g_argv[%d] = %s", g_argc,
 		    g_argv[g_argc]);

@@ -27,11 +27,11 @@
 #define _ANONGITSSH_H_
 
 struct chrootenv {
-	char *ce_repodir_prefix;
-	char *ce_exec;
-	char *ce_chrootdir;
-	char *ce_nam;
-	char *ce_contact;
+	const char *ce_repodir_prefix;
+	const char *ce_exec;
+	const char *ce_chrootdir;
+	const char *ce_nam;
+	const char *ce_contact;
 };
 
 #endif /* _ANONCVSSH_H_ */

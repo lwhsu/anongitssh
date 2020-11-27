@@ -25,7 +25,6 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-#if 0
 #ifndef	README_URL
 #define README_URL	"https://www.allbsd.org/git.html"
 #endif
@@ -41,7 +40,6 @@
 #ifndef	GITUPLOADPACK_PATH
 #define	GITUPLOADPACK_PATH	"/usr/local/libexec/git-upload-pack"
 #endif
-#endif
 
 #ifndef DEFAULT_PATH
 #define	DEFAULT_PATH	"/bin:/usr/bin"
@@ -49,16 +47,5 @@
 #ifndef DEFAULT_SHELL
 #define DEFAULT_SHELL	"/bin/sh"
 #endif
-
-const struct chrootenv anongit_ce[] = {
-	{
-		.ce_repodir_prefix = REPODIR_PREFIX,
-		.ce_exec = GITUPLOADPACK_PATH,
-		.ce_chrootdir = "/",
-		.ce_nam = ANONGIT_USER,
-		.ce_contact = CONTACT
-	},
-	{ NULL, NULL, NULL, NULL, NULL }
-};
 
 #endif /* _CONFIG_H_ */

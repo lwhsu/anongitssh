@@ -27,6 +27,7 @@
 #define _PUTLOG_H_
 
 #define	PUTLOG_MAXLEN	1024
+
 extern bool putlog_syslog;
 
 void putlog(int, const char *, ...);
