@@ -2,7 +2,6 @@
 
 PROG=   anongitssh
 SRCS=	anongitssh.c putlog.c
-MK_MAN=		no
 MK_DEBUG_FILES=	no
 
 README_URL?=		https://www.allbsd.org/anongit.html
@@ -13,8 +12,8 @@ GITUPLOADPACK_PATH?=	/usr/local/bin/git-upload-pack
 
 BINOWN?=	root
 BINMODE?=	4111
-DESTDIR?=	/usr/local
-BINDIR?=	/libexec
+BINDIR?=	/usr/local/libexec
+SHAREDIR?=	/usr/local/share
 # Clang/LLVM
 CFLAGS+=	-std=gnu99 \
 		-fstack-protector-strong -Wsystem-headers \
