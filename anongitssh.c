@@ -83,6 +83,8 @@ main(int argc, char *argv[])
 		return(EXIT_FAILURE);
 	if((*e++ = strdup("HOME=/")) == NULL)
 		return(EXIT_FAILURE);
+	if((*e++ = strdup("GIT_PROTOCOL=version=2")) == NULL)
+		return(EXIT_FAILURE);
 	*e = NULL;
   
 	if (putlog_syslog)
